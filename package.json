@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@emotion/react": "^11.11.4"
+  }
+}

@@ -1,0 +1,12 @@
+.sidebar {
+  background-color: green;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 10rem;
+}
+
+.sidebar li,
+.sidebar div {
+  padding: 0.8rem;
+}

@@ -1,6 +1,6 @@
 # The-Opinion (Acropolis)
 
-더 오피니언
+Write & Read 방식의 커뮤니티
 
 ## 기획
 
