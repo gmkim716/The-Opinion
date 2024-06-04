@@ -33,6 +33,66 @@ export default function SideBar() {
           </Link>
         </ul>
       </nav>
+      <nav>
+        <ul>
+          <Link href="/about">
+            <li>About</li>
+          </Link>
+          <Link href="/contact">
+            <li>Contact</li>
+          </Link>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <Link href="/about">
+            <li>About</li>
+          </Link>
+          <Link href="/contact">
+            <li>Contact</li>
+          </Link>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <Link href="/about">
+            <li>About</li>
+          </Link>
+          <Link href="/contact">
+            <li>Contact</li>
+          </Link>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <Link href="/about">
+            <li>About</li>
+          </Link>
+          <Link href="/contact">
+            <li>Contact</li>
+          </Link>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <Link href="/about">
+            <li>About</li>
+          </Link>
+          <Link href="/contact">
+            <li>Contact</li>
+          </Link>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <Link href="/about">
+            <li>About</li>
+          </Link>
+          <Link href="/contact">
+            <li>Contact</li>
+          </Link>
+        </ul>
+      </nav>
     </aside>
   );
 }

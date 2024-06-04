@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/section/header";
 import SideBar from "@/components/section/sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
+import styles from './layout.module.css'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,10 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Header />
+        <div className={styles.layout}>
+
         <SideBar />
         <main>{children}</main>
+        </div>
+
       </body>
     </html>
   );
