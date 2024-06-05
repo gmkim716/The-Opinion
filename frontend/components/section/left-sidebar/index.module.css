@@ -1,0 +1,23 @@
+.sidebar {
+  /* background-color: green; */
+  position: fixed;
+  top: 57.5px;
+  left: 0;
+  width: 15vw;
+  overflow: auto;
+  height: calc(100vh - 57.5px);
+}
+
+.sidebar li,
+.sidebar div {
+  padding: 0.8rem;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgb(var(--foreground-rgb));
+  border-radius: 1rem;
+}

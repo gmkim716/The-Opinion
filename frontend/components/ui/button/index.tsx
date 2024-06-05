@@ -3,7 +3,7 @@
 
 import { css } from "@emotion/react";
 
-export default function Icon({
+export default function Button({
   children,
   color,
   bgColor,

@@ -1,3 +1,17 @@
 .layout {
   display: flex;
 }
+
+.main {
+  left: 15vw;
+  width: 85vw;
+  position: relative;
+  background-color: skyblue;
+}
+
+.children {
+  display: flex;
+  background-color: orange;
+  justify-content: space-between;
+  width: 50%;
+}
