@@ -1,11 +1,10 @@
 .sidebar {
   /* background-color: green; */
   position: fixed;
-  top: 57.5px;
-  left: 0;
-  width: 15vw;
+  width: 13vw;
   overflow: auto;
   height: calc(100vh - 57.5px);
+  font-size: 1.4rem;
 }
 
 .sidebar li,

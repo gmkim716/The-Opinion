@@ -1,16 +1,26 @@
+.appbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
 .layout {
+  position: relative;
+  top: 6.4rem;
   display: flex;
 }
 
 .main {
-  left: 15vw;
-  width: 85vw;
+  left: 13vw;
+  width: calc((100vw - 13vw));
+  padding: 0 6rem;
   position: relative;
-  background-color: skyblue;
+  /* background-color: skyblue; */
+  display: flex;
+  justify-content: center;
 }
 
 .children {
-  display: flex;
-  background-color: orange;
-  justify-content: space-between;
+  /* background-color: green; */
+  width: 50%;
 }

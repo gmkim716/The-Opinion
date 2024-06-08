@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/section/header";
 
 import styles from "./layout.module.css";
 import LeftSidebar from "@/components/section/left-sidebar";
 import RightSidebar from "@/components/section/right-sidebar";
+import PrimarySearchAppBar from "@/components/ui/app-bar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,14 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
+        <div className={styles.appbar}>
+          <PrimarySearchAppBar />
+        </div>
         <div className={styles.layout}>
           <LeftSidebar />
           <main className={styles.main}>
-            <div className={styles.children}>
-              {children}
-              <RightSidebar />
-            </div>
+            <div className={styles.children}>{children}</div>
+            <RightSidebar />
           </main>
         </div>
       </body>
