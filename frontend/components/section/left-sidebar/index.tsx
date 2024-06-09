@@ -1,5 +1,10 @@
 import Link from "next/link";
 import styles from "./index.module.css";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import OutboundOutlinedIcon from "@mui/icons-material/OutboundOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function LeftSidebar() {
   return (
@@ -7,20 +12,45 @@ export default function LeftSidebar() {
       <nav>
         <ul>
           <Link href="/">
-            <li>Home</li>
+            <li>
+              <HomeOutlinedIcon />
+              Home
+            </li>
           </Link>
           <Link href="/topic/popular">
-            <li>Popular</li>
+            <li>
+              <OutboundOutlinedIcon /> Popular
+            </li>
           </Link>
           <hr />
         </ul>
         <ul>
           <div>Topics</div>
           <Link href="/topic/create">
-            <li>Create Topic</li>
+            <li>
+              <AddOutlinedIcon />
+              Create Topic
+            </li>
           </Link>
         </ul>
-        <div>더보기</div>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            더보기
+          </AccordionSummary>
+          <AccordionDetails>
+            <ul>
+              <Link href="/topic/1">
+                <li>Topic 1</li>
+              </Link>
+              <Link href="/topic/2">
+                <li>Topic 2</li>
+              </Link>
+              <Link href="/topic/3">
+                <li>Topic 3</li>
+              </Link>
+            </ul>
+          </AccordionDetails>
+        </Accordion>
       </nav>
       <hr />
       <nav>

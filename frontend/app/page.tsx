@@ -1,27 +1,28 @@
+import { time } from "console";
 import styles from "./page.module.css";
-import Post from "@/components/ui/post";
+import Post from "@/components/section/post";
 
-const tempPostData = [
-  {
-    user: "user1",
-    content: "content1",
-  },
-  {
-    user: "user2",
-    content: "content2",
-  },
-  {
-    user: "user3",
-    content: "content3",
-  },
-];
+interface PostDataType {
+  id: string;
+  user: string;
+  time: string;
+  content: string;
+}
 
-export default function Home() {
+export default async function Home() {
+  // const tempPostData = await fetchPosts<PostDataType>();
+
   return (
     <main className={styles.main}>
-      {tempPostData.map((post, index) => (
-        <Post key={index} user={post.user} content={post.content} />
-      ))}
+      {/* {tempPostData.map((post, index) => (
+        <Post
+          key={index}
+          postId={post.id}
+          user={post.user}
+          time={post.time}
+          content={post.content}
+        />
+      ))} */}
     </main>
   );
 }

@@ -12,7 +12,7 @@
 
 .main {
   left: 13vw;
-  width: calc((100vw - 13vw));
+  width: calc((100vw - 24rem));
   padding: 0 6rem;
   position: relative;
   /* background-color: skyblue; */
@@ -21,6 +21,5 @@
 }
 
 .children {
-  /* background-color: green; */
   width: 50%;
 }

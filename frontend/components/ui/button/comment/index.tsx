@@ -1,10 +1,22 @@
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+"use client";
 
-export default function CommentButton({ nums }: { nums: number }) {
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import ButtonIcon from "..";
+
+export default function CommentButton({
+  postId,
+  commentNums,
+}: {
+  postId: string;
+  commentNums: number;
+}) {
+  const handleCommentButton = () => {
+    console.log("handleCommentButton" + postId);
+  };
   return (
-    <button className="button">
+    <ButtonIcon onClick={handleCommentButton}>
       <ChatBubbleOutlineOutlinedIcon />
-      {nums}
-    </button>
+      {commentNums}
+    </ButtonIcon>
   );
 }

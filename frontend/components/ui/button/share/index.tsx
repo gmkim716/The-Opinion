@@ -1,9 +1,15 @@
-import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
+"use client";
 
-export default function ShareButton() {
+import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
+import ButtonIcon from "..";
+
+export default function ShareButton({ postId }: { postId: string }) {
+  const handleShareButton = () => {
+    console.log("Share Button" + postId);
+  };
   return (
-    <button className="button">
+    <ButtonIcon onClick={handleShareButton}>
       <IosShareOutlinedIcon />
-    </button>
+    </ButtonIcon>
   );
 }

@@ -1,0 +1,38 @@
+.layout {
+  background-color: grey;
+  border-radius: 1.2rem;
+  width: 100%;
+}
+
+.divider {
+  width: 100%;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.avatar {
+  border-radius: 10rem;
+}
+
+.options {
+  display: flex;
+  gap: 0.6rem;
+}

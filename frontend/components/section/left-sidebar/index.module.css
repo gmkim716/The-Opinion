@@ -1,9 +1,9 @@
 .sidebar {
-  /* background-color: green; */
+  background-color: white;
   position: fixed;
-  width: 13vw;
+  width: 24rem;
   overflow: auto;
-  height: calc(100vh - 57.5px);
+  height: calc(100vh - 64px);
   font-size: 1.4rem;
 }
 

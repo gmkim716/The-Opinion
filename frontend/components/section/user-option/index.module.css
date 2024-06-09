@@ -1,0 +1,28 @@
+.layout {
+  background: yellow;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.edit {
+  display: flex;
+  text-align: center;
+}
+
+.dark_mode {
+  display: flex;
+  align-items: center;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+}
