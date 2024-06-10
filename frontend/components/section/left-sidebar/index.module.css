@@ -5,10 +5,13 @@
   overflow: auto;
   height: calc(100vh - 64px);
   font-size: 1.4rem;
+  color: black;
 }
 
-.sidebar li,
-.sidebar div {
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
   padding: 0.8rem;
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./index.module.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ButtonIcon from "..";

@@ -1,6 +1,7 @@
 import { time } from "console";
 import styles from "./page.module.css";
 import Post from "@/components/section/post";
+import { getPosts } from "@/lib/posts";
 
 interface PostDataType {
   id: string;
@@ -9,12 +10,12 @@ interface PostDataType {
   content: string;
 }
 
-export default async function Home() {
-  // const tempPostData = await fetchPosts<PostDataType>();
+export default function Home() {
+  const tempPostData: PostDataType[] = getPosts();
 
   return (
     <main className={styles.main}>
-      {/* {tempPostData.map((post, index) => (
+      {tempPostData.map((post, index) => (
         <Post
           key={index}
           postId={post.id}
@@ -22,7 +23,7 @@ export default async function Home() {
           time={post.time}
           content={post.content}
         />
-      ))} */}
+      ))}
     </main>
   );
 }
