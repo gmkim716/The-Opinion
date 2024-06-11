@@ -3,6 +3,7 @@
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ButtonIcon from "..";
+import { styled } from "@mui/material/styles";
 
 export default function VoteButton({
   postId,
@@ -11,6 +12,20 @@ export default function VoteButton({
   postId: string;
   voteNums: number;
 }) {
+  const StyledThumbUpIcon = styled(ThumbUpIcon)({
+    cursor: "pointer",
+    "&:hover": {
+      color: "blue",
+    },
+  });
+
+  const StyledThumbDownIcon = styled(ThumbDownIcon)({
+    cursor: "pointer",
+    "&:hover": {
+      color: "blue",
+    },
+  });
+
   const handleThumbUp = () => {
     console.log("Thumb Up" + postId);
   };
@@ -21,9 +36,9 @@ export default function VoteButton({
 
   return (
     <ButtonIcon>
-      <ThumbUpIcon onClick={handleThumbUp} />
+      <StyledThumbUpIcon onClick={handleThumbUp} />
       <div>{voteNums}</div>
-      <ThumbDownIcon onClick={handleThumbDown} />
+      <StyledThumbDownIcon onClick={handleThumbDown} />
     </ButtonIcon>
   );
 }

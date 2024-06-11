@@ -26,7 +26,9 @@ export default function RootLayout({
           <LeftSidebar />
           <main className={styles.main}>
             <div className={styles.children}>{children}</div>
-            <RightSidebar />
+            <div className={styles.right_sidebar}>
+              <RightSidebar />
+            </div>
           </main>
         </div>
       </body>

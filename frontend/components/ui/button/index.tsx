@@ -18,11 +18,12 @@ export default function ButtonIcon({
     background-color: ${bgColor};
     color: ${color};
     border: none;
-    border-radius: 1.2rem;
-    padding: 0.4rem 0.6rem;
+    border-radius: 1.4rem;
+    padding: 0.6rem 1rem;
     font-size: 1.4rem;
     display: flex;
     align-items: center;
+    gap: 0.6rem;
   `;
 
   return (

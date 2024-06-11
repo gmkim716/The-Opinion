@@ -5,6 +5,7 @@ import VoteButton from "../../ui/button/vote";
 import styles from "./index.module.css";
 import MoreButton from "@/components/ui/button/more";
 import JoinButton from "@/components/ui/button/join";
+import ConvertStringToParagraph from "@/utils/convert-string-paragraph";
 
 const tempUserImage = "/images/man_image.jpeg";
 
@@ -19,6 +20,8 @@ export default function Post({
   content: string;
   time: string;
 }) {
+  const convertedParagraph = ConvertStringToParagraph(content);
+
   return (
     <>
       <hr className={styles.divider} />
@@ -40,7 +43,7 @@ export default function Post({
             <MoreButton postId={postId} />
           </div>
         </div>
-        <div className={styles.content}>{content}</div>
+        <div className={styles.content}>{convertedParagraph}</div>
         <div className={styles.options}>
           <VoteButton postId={postId} voteNums={120} />
           <CommentButton postId={postId} commentNums={10} />

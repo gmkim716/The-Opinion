@@ -15,11 +15,16 @@
   width: calc((100vw - 24rem));
   padding: 0 6rem;
   position: relative;
-  /* background-color: skyblue; */
   display: flex;
   justify-content: center;
 }
 
 .children {
   width: 50%;
+}
+
+.right_sidebar {
+  position: relative;
+  left: 2rem;
+  width: 20%;
 }

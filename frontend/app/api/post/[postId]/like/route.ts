@@ -1,6 +1,10 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export function POST(req: NextRequest, params: { postId: string }) {
-  console.log("Like" + params.postId);
-  return params.postId;
+export function POST(
+  req: NextRequest,
+  { params }: { params: { postId: string } }
+) {
+  const { postId } = params;
+
+  return NextResponse.json({ postId });
 }

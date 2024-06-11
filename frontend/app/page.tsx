@@ -2,6 +2,7 @@ import { time } from "console";
 import styles from "./page.module.css";
 import Post from "@/components/section/post";
 import { getPosts } from "@/lib/posts";
+import ViewOptionSection from "@/components/section/view-option";
 
 interface PostDataType {
   id: string;
@@ -15,6 +16,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <ViewOptionSection />
       {tempPostData.map((post, index) => (
         <Post
           key={index}
