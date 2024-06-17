@@ -1,13 +1,27 @@
-spring:
-  application:
-    name: ApiServer
+# yml로 설정 시 예시
 
-springdoc:
-  packagesToScan: com.the_opinion.backend.controllers
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
-  swagger-ui:
-    path: /api-docs
-    disable-swagger-default-url: true
-    display-request-duration: true
-    operations-sorter: alpha
+#spring:
+#  application:
+#    name: ApiServer
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/theopinion?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+#    username: admin
+#    password: 0000
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    show-sql: true  # 쿼리를 보여줄지 여부
+#    hibernate:
+#      ddl-auto: none  # DDL(create, alter, drop) 정의 시에 DB 고유 기능을 사용
+#    properties:
+#      hibernate:
+#        format_sql: true  # Hibernate가 생성하는 SQL을 보기 좋게 출력
+#
+#springdoc:
+#  packagesToScan: com.the_opinion.backend.controllers
+#  default-consumes-media-type: application/json;charset=UTF-8
+#  default-produces-media-type: application/json;charset=UTF-8
+#  swagger-ui:
+#    path: /api-docs
+#    disable-swagger-default-url: true
+#    display-request-duration: true
+#    operations-sorter: alpha
