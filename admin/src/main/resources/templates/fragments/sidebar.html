@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!-- Main Sidebar Container -->
+<aside th:fragment="sidebarFragment" class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4"
+	   style="margin-top: 72px">
+	<!--		 <a sec:authorize="hasRole('ADMIN')" href="/admin/web/main" class="brand-link">-->
+	<!--		 	<span class="brand-text font-weight-light">마루랩 어드민</span>-->
+	<!--		 </a>-->
+
+	<!-- Brand Logo -->
+	<!--		   <a href="https://www.toriedufin.co.kr" class="brand-link">-->
+	<!--			   <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">-->
+	<!--			   <span class="brand-text font-weight-light">Toriedufin</span>-->
+	<!--		   </a>-->
+
+	<!-- Sidebar -->
+	<div class="sidebar" style="height: calc(100% - 57px)">
+		<!-- Sidebar user (optional) -->
+		<!--			   <div class="user-panel mt-3 pb-3 mb-3 d-flex">-->
+		<!--					<div class="image">-->
+		<!--						  <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
+		<!--					</div>-->
+		<!--					<div class="info">-->
+		<!--						  <a href="#" class="d-block">[[${session?.user?.name}]]</a>-->
+		<!--					</div>-->
+		<!--			   </div>-->
+
+		<!-- SidebarSearch Form -->
+		<!--			   <div class="form-inline">-->
+		<!--					<div class="input-group" data-widget="sidebar-search">-->
+		<!--						  <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">-->
+		<!--						  <div class="input-group-append">-->
+		<!--							  <button class="btn btn-sidebar">-->
+		<!--									<i class="fas fa-search fa-fw"></i>-->
+		<!--							  </button>-->
+		<!--						  </div>-->
+		<!--					</div>-->
+		<!--			   </div>-->
+
+		<!-- Sidebar Menu -->
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				<!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+				<!-- 회원 관리 -->
+				<li class="nav-header text-bold" style="font-size: 18px; letter-spacing: 1px">회원 관리</li>
+				<li sec:authorize="hasRole('ADMIN')" class="nav-item ">
+					<a href="/admin/web/member" class="nav-link" th:classappend="${active} == 'member' ? active">
+						<p class="pl-3">
+							회원
+						</p>
+					</a>
+				</li>
+				<!-- 학습 관리 -->
+				<li class="nav-header text-bold" style="font-size: 18px; letter-spacing: 1px">학습 관리</li>
+				<li sec:authorize="hasRole('ADMIN')" class="nav-item ">
+					<a href="/admin/web/learning" class="nav-link" th:classappend="${active} == 'learning' ? active">
+						<p class="pl-3">
+							학습
+						</p>
+					</a>
+				</li>
+				<!-- 주식 종목 관리 -->
+				<li class="nav-header text-bold" style="font-size: 18px; letter-spacing: 1px">주식 종목 관리</li>
+				<li sec:authorize="hasRole('ADMIN')" class="nav-item ">
+					<a href="/admin/web/stock" class="nav-link" th:classappend="${active} == 'stock' ? active">
+						<p class="pl-3">
+							주식 종목
+						</p>
+					</a>
+				</li>
+				<!-- 예적금/CMA 상품 관리 -->
+				<li class="nav-header text-bold" style="font-size: 18px; letter-spacing: 1px">예적금/CMA 상품 관리</li>
+				<li sec:authorize="hasRole('ADMIN')" class="nav-item ">
+					<a href="/admin/web/bank" class="nav-link" th:classappend="${active} == 'bank' ? active">
+						<p class="pl-3">
+							예적금/CMA 상품 종목
+						</p>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+
+	<div class="sidebar-custom">
+		<!--			   <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>-->
+		<!--			   <a href="#" class="btn btn-secondary hide-on-collapse pos-right">Help</a>-->
+	</div>
+	<!-- /.sidebar-custom -->
+
+	<script th:inline="javascript">
+		// 검색조건 유지를 위해 로컬 스토리지 초기화
+		$(document).on('click', 'a', function (e) {
+			window.localStorage.clear();
+		});
+	</script>
+
+</aside>
+</html>
+
