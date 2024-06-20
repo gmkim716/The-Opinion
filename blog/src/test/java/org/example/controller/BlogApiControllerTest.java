@@ -20,8 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,7 +46,7 @@ class BlogApiControllerTest {
         blogRepository.deleteAll();  // 각 테스트 전에 데이터베이스 초기화
     }
 
-    @DisplayName("addArticle: 블로그 글 추가에 성공한다.")
+    @DisplayName("addArticle: 블로그 글을 추가한다.")
     @Test
     public void addArticle() throws Exception {
         // given
@@ -77,7 +76,7 @@ class BlogApiControllerTest {
         assertThat(articles.get(0).getContent()).isEqualTo(content);
     }
 
-    @DisplayName("findAllArticles: 블로그 글 목록 조회에 성공한다.")
+    @DisplayName("findAllArticles: 블로그 글 목록을 조회한다.")
     @Test
     public void findAllArticles() throws Exception {
         // given
@@ -97,11 +96,11 @@ class BlogApiControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].content").value(content))
-                .andExpect(jsonPath("$[0].title").value(title));
+                .andExpect(jsonPath("$[0].content").value(content))  // $[0].content: JSON 배열의 첫 번째 객체의 content 필드
+                .andExpect(jsonPath("$[0].title").value(title));  // $[0].title: JSON 배열의 첫 번째 객체의 title 필드
     }
 
-    @DisplayName("findArticleById: 블로그 글 상세 조회에 성공한다.")
+    @DisplayName("findArticleById: 블로그 글을 조회한다.")
     @Test
     public void findArticle() throws Exception {
         // given
@@ -120,7 +119,33 @@ class BlogApiControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value(content))
-                .andExpect(jsonPath("$.title").value(title));
+                .andExpect(jsonPath("$.content").value(content))  // $.content: JSON 객체의 content 필드
+                .andExpect(jsonPath("$.title").value(title));  // $.title: JSON 객체의 title 필드
     }
+
+    @DisplayName("deleteArticle: 블로그 글을 삭제한다.")
+    @Test
+    public void deleteArticle() throws Exception {
+        // given
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        // when
+        mockMvc.perform(delete(url, savedArticle.getId()))
+                .andExpect(status().isOk());
+
+        // then
+        List<Article> articles = blogRepository.findAll();
+
+        assertThat(articles).isEmpty();  // 데이터베이스에 저장된 글이 없는지 확인
+
+    }
+
+
 }
