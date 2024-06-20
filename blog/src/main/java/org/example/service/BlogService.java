@@ -1,8 +1,10 @@
 package org.example.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.domain.Article;
 import org.example.dto.AddArticleRequest;
+import org.example.dto.UpdateArticleRequest;
 import org.example.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,6 @@ public class BlogService {
 
     private final BlogRepository blogRepository;
 
-    // 블로그 글 추가 메서드
     public Article save(AddArticleRequest addArticleRequest) {
         return blogRepository.save(addArticleRequest.toEntity());
     }
@@ -31,4 +32,14 @@ public class BlogService {
     public void delete(long id) {
         blogRepository.deleteById(id);
     }
+
+    // 수정 과정에 에러 발생을 방지하기 위해 트랜잭션 처리
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request) {
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found " + id));
+        article.update(request.getTitle(), request.getContent());
+        return article;
+    }
+
 }

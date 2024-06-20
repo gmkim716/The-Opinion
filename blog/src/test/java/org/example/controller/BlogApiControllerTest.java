@@ -3,6 +3,7 @@ package org.example.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.domain.Article;
 import org.example.dto.AddArticleRequest;
+import org.example.dto.UpdateArticleRequest;
 import org.example.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -60,9 +61,9 @@ class BlogApiControllerTest {
 
         // when
         // 설정한 내용을 바탕으로 요청을 전송
-        ResultActions result = mockMvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(requestJson)
+        ResultActions result = mockMvc.perform(post(url)  // POST 메서드로 요청
+                .contentType(MediaType.APPLICATION_JSON_VALUE)  // 요청 본문의 타입을 JSON으로 설정
+                .content(requestJson)  // 요청 본문을 JSON으로 변환
         );
 
         // then
@@ -114,7 +115,7 @@ class BlogApiControllerTest {
                 .build());
 
         // when
-        final ResultActions resultActions = mockMvc.perform(get(url, savedArticle.getId()));
+        final ResultActions resultActions = mockMvc.perform(get(url, savedArticle.getId()));  // GET 메서드로 요청
 
         // then
         resultActions
@@ -137,15 +138,45 @@ class BlogApiControllerTest {
                 .build());
 
         // when
-        mockMvc.perform(delete(url, savedArticle.getId()))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete(url, savedArticle.getId()))  // DELETE 메서드로 요청
+                .andExpect(status().isOk());  // HTTP 상태 코드가 200(OK)인지 확인
 
         // then
         List<Article> articles = blogRepository.findAll();
 
         assertThat(articles).isEmpty();  // 데이터베이스에 저장된 글이 없는지 확인
-
     }
 
+    @DisplayName("updateArticle: 블로그 글을 수정한다.")
+    @Test
+    public void updateArticle() throws Exception {
+        // given
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
 
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        final String newTitle = "new title";
+        final String newContent = "new content";
+
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+
+        // when
+        ResultActions result = mockMvc.perform(patch(url, savedArticle.getId())  // PATCH 메서드로 요청
+                .contentType(MediaType.APPLICATION_JSON_VALUE)  // 요청 본문의 타입을 JSON으로 설정
+                .content(objectMapper.writeValueAsString(request))  // 요청 본문을 JSON으로 변환
+        );
+
+        // then
+        result.andExpect(status().isOk());  // HTTP 상태 코드가 200(OK)인지 확인
+
+        Article article = blogRepository.findById(savedArticle.getId()).get();
+
+        assertThat(article.getTitle()).isEqualTo(newTitle);
+        assertThat(article.getContent()).isEqualTo(newContent);
+    }
 }
