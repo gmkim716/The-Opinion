@@ -1,4 +1,4 @@
-package com.the_opinion.backend.entity.common;
+package com.the_opinion.backend.db.entity.common;
 
 import jakarta.persistence.*;
 import lombok.Getter;

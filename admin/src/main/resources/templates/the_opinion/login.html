@@ -1,0 +1,151 @@
+<html lang="ko" xmlns:http="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="http://localhost:9090"><b>더 오피니언 어드민</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <form action="/admin/web/member/loginProcess" method="post" onSubmit="return false;">
+                    <div class="input-group mb-3">
+                        <input id="id" name="id" type="text" class="form-control" placeholder="아이디">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <!-- <span class="fas fa-envelope"></span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="password" name="password" type="password" class="form-control" placeholder="비밀번호">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <!-- <span class="fas fa-lock"></span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <!-- <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div> -->
+                        <!-- /.col -->
+                        <div class="col-12">
+                            <button id="login" type="button" class="btn btn-primary btn-block">로그인</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <!--				 <div class="social-auth-links text-center mb-3">-->
+                <!--					 <p>- OR -</p>-->
+                <!--					 <a href="#" class="btn btn-block btn-primary">-->
+                <!--						 <i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
+                <!--					 </a>-->
+                <!--					 <a href="/oauth2/authorization/google" class="btn btn-block btn-danger">-->
+                <!--						 <i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
+                <!--					 </a>-->
+                <!--				 </div>-->
+                <!-- /.social-auth-links -->
+
+                <!--				 <p class="mb-1">-->
+                <!--					 <a href="forgot-password.html">I forgot my password</a>-->
+                <!--				 </p>-->
+                <!--				 <p class="mb-0">-->
+                <!--					 <a href="register.html" class="text-center">Register a new membership</a>-->
+                <!--				 </p>-->
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+
+    <!-- 공통 안내 팝업 -->
+    <div th:replace="common/modal/alert :: #modalAlert"></div>
+
+    <!-- jQuery -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/js/adminlte.min.js"></script>
+    <!-- Common -->
+    <script src="/js/common.js"></script>
+    <!-- UI -->
+    <script src="/js/ui.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            // 엔터키 이벤트
+            $('input').on("keyup",function(key){
+                if(key.keyCode==13) {
+                    $('#login').trigger('click');
+                }
+            });
+
+            $('#login').on('click', function(e){
+                // Id Validation Check
+                if( !$('#id').val() ) {
+                    modalAlert("아이디를 입력하세요.");
+                    return false;
+                }
+
+                // Password Validation Check
+                if( !$('#password').val() ) {
+                    modalAlert("비밀번호를 입력하세요.");
+                    return false;
+                }
+
+                common.ajax.formData(
+                        '/admin/web/member/loginProcess',
+                        {
+                            id: $('#id').val(),
+                            password: $('#password').val(),
+                        },
+                        function (response) {
+                            console.log("response: ", response);
+                            if( response.result === "S" ) {
+                                // 로그인 성공
+                                common.goPage(response.redirectUrl);
+                            }
+                            else if( response.result == 'F' ) {
+                                if (response.et == 'AL') {
+                                    modalAlert("비밀번호 5회 오류 시, 계정 접속이 제한됩니다.\n" +
+                                            "정확하게 입력해주세요.");
+                                }else if (response.et == 'SD') {
+                                    modalAlert("동일 계정으로 접속중입니다.");
+                                }else if (response.et == 'LK') {
+                                    modalAlert("접속이 제한된 계정입니다.\n" +
+                                            "관리자에게 문의해주세요.");
+                                }else {
+                                    modalAlert("아이디 또는 비밀번호를 다시 확인하세요.");
+                                }
+                            }
+                        }
+                );
+            });
+        });
+    </script>
+
+</body>
+
+</html>

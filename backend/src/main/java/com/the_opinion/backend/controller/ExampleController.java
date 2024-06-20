@@ -1,4 +1,4 @@
-package com.the_opinion.backend.controllers;
+package com.the_opinion.backend.controller;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;

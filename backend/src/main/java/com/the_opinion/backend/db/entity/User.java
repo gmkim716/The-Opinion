@@ -1,6 +1,6 @@
-package com.the_opinion.backend.entity;
+package com.the_opinion.backend.db.entity;
 
-import com.the_opinion.backend.entity.common.IdGenerationUpdatableEntity;
+import com.the_opinion.backend.db.entity.common.IdGenerationUpdatableEntity;
 import com.the_opinion.backend.model.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;

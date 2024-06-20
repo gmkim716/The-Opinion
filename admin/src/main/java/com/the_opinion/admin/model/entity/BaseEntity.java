@@ -1,4 +1,4 @@
-package com.the_opinion.admin.service;
+package com.the_opinion.admin.model.entity;
 
 import jakarta.persistence.MappedSuperclass;
 

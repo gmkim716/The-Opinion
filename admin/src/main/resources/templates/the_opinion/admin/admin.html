@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<!-- CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- SCRIPT 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="contentFragment" class="content-wrapper">
+    <!-- Main content -->
+    <section class="content pt-3">
+        <!-- 요약 정보-->
+        <div class="invoice p-3 mb-3" style="border-radius: 0.25rem">
+            <!-- info  -->
+            <div class="row invoice-info text-center ml-1">
+                <h3>파트너 목록</h3>
+            </div>
+        </div>
+        <!-- /.요약 정보-->
+        <!--검색 카드-->
+        <div class="card">
+            <!-- card-body -->
+            <div class="card-body" style="padding-bottom: 0">
+                <table class="table">
+                    <colgroup>
+                        <col width="10%"/>
+                    </colgroup>
+                    <tbody>
+                    <tr class="border-bottom">
+                        <th scope="row" style="line-height: 38px">검색조건</th>
+                        <td>
+                            <div class="box1 d-flex">
+                                <select id="condition" class="form-control mr-3" style="width: 10rem">
+                                    <option value="">전체</option>
+                                    <option value="1">파트너SID</option>
+                                    <option value="2">파트너명</option>
+                                    <option value="3">판매브랜드</option>
+                                </select>
+                                <!-- /btn-group -->
+                                <input id="conditionVal" type="text" class="form-control" autocomplete="one-time-code" style="width: 20rem">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <th scope="row" style="line-height: 38px">계약여부</th>
+                        <td>
+                            <div class="form-group d-flex m-0">
+                                <div class="custom-control custom-checkbox">
+                                    <input name="contractYn" value="Y" class="custom-control-input custom-control-input-primary custom-control-input-outline"
+                                           type="checkbox" id="contractY" checked>
+                                    <label for="contractY" class="custom-control-label mr-4"
+                                           style="vertical-align:-7px;">Y</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input name="contractYn" value="N" class="custom-control-input custom-control-input-primary custom-control-input-outline"
+                                           type="checkbox" id="contractN" checked>
+                                    <label for="contractN" class="custom-control-label"
+                                           style="vertical-align:-7px;">N</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            <!-- card-footer -->
+            <div class="card-footer clearfix d-flex justify-content-center" style="background: #ffffff">
+                <button id="search" type="button" class="btn btn-sm btn-block btn-primary mr-4" style="width: 10rem">검색</button>
+                <button id="init" type="button" class="btn btn-sm btn-block btn-default mt-0" style="width: 10rem">초기화</button>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.검색 카드-->
+
+        <!-- /.card -->
+        <div id="List" th:fragment="List">
+            <div class="card">
+                <!-- card-header -->
+                <div class="card-header pr-1" style="padding: 1rem 1.5rem;">
+                    <h3 class="card-title" style="font-size: 14px; line-height: 38px; color: #999999">총
+                        <strong>[[${adminListPage?.totalElements}]]</strong>개</h3>
+                    <div class="card-tools" style="width: 10rem; margin-right:1.375rem">
+                        <button type="button" class="btn btn-sm btn-block btn-dark mt-1" style="width: 10rem"
+                                onclick="common.goPage('/admin/web/admin/admin-detail')">
+                            파트너 등록
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive pl-4 pr-4 pt-3 pb-3">
+                    <!--테이블 데이터-->
+                    <div class="box1" style="flex-wrap: nowrap; overflow-x: auto">
+                        <table class="table table-hover text-nowrap">
+                            <thead style="background: #ededed; text-align: center">
+                            <tr>
+                                <th>파트너SID</th>
+                                <th>파트너명</th>
+                                <th>아이디</th>
+                                <th>계약여부</th>
+                                <th>판매브랜드</th>
+                                <th>등록일자</th>
+                            </tr>
+                            </thead>
+                            <tbody style="text-align: center">
+                            <tr th:if="${adminListPage}" th:each="admin : ${adminListPage}" class="border-bottom">
+                                <td class="detail-brand">
+                                    <a th:href="|javascript:PageFunction.getPartnerDetail('*{admin.sid}')|">
+                                        [[${admin.sid}]]
+                                    </a>
+                                </td>
+                                <td>[[${admin.partnerNameKor}]]</td>
+                                <td>[[${admin.id}]]</td>
+                                <td th:text="${admin.contractYn} == 'Y' ? '계약' : '미계약'"></td>
+                                <td th:if="${admin.brandList.size()} == 0"></td>
+                                <td th:unless="${admin.brandList.size()} == 0" th:text="${admin.brandList.size()} == 1 ? ${admin.brandList?.get(0)?.brandName} : ${admin.brandList.get(0).brandName} + ' 외 ' + ${admin.brandList.size()-1} + '개' "</td>
+                                <td>[[${#temporals.format(admin.insertTime, 'yyyy-MM-dd')}]]</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.테이블 데이터 -->
+                    <!--페이지네이션-->
+                    <div class="d-flex justify-content-center">
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers"
+                                 id="example2_paginate">
+                                <ul th:if="${adminListPage?.hasContent}" class="pagination justify-content-center" th:with="max=5">
+                                    <li th:class="${adminListPage.number eq 0} ? 'paginate_button page-item previous disabled' : 'paginate_button page-item previous'">
+                                        <a th:if="!${adminListPage.isFirst}"
+                                           th:href="'javascript:PageFunction.getPartnerList('+${adminListPage.number-10}+')'"
+                                           class="page-link"> &lt;&lt; </a>
+                                        <a th:if="${adminListPage.isFirst}" href="javascript:void(0);"
+                                           class="page-link"> &lt;&lt; </a>
+                                    </li>
+                                    <li th:class="${adminListPage.number eq 0} ? 'paginate_button page-item previous disabled' : 'paginate_button page-item previous'">
+                                        <a th:if="!${adminListPage.isFirst}"
+                                           th:href="'javascript:PageFunction.getPartnerList('+${adminListPage.number-1}+')'"
+                                           class="page-link"> &lt; </a>
+                                        <a th:if="${adminListPage.isFirst}" href="javascript:void(0);"
+                                           class="page-link"> &lt; </a>
+                                    </li>
+                                    <li class="paginate_button page-item" th:each="pageNo: ${#numbers.sequence(0, adminListPage.totalPages-1)}"
+                                        th:if="${adminListPage.number} >= ${pageNo - max} and ${adminListPage.number} <= ${pageNo + max} or ${pageNo} == ${adminListPage.totalPages - 1} or ${pageNo} == 0"
+                                        th:classappend="${pageNo} == ${adminListPage.number} ? 'active'" >
+                                        <span class="page-link" th:if="${adminListPage.number} == ${pageNo + max} and ${pageNo != 0}">...</span>
+                                        <a class="page-link"
+                                           th:if="${adminListPage.number} > ${pageNo - max} and ${adminListPage.number} < ${pageNo + max} or ${pageNo} == ${adminListPage.totalPages - 1} or ${pageNo} == 0"
+                                           th:href="'javascript:PageFunction.getPartnerList('+${pageNo}+')'" th:text="${pageNo+1}">1</a>
+                                        <span class="page-link" th:if="${adminListPage.number} == ${pageNo - max} and ${pageNo} != ${adminListPage.totalPages - 1}">...</span>
+                                    </li>
+                                    <li th:class="${adminListPage.number+1 ge adminListPage.totalPages} ? 'paginate_button page-item next disabled' : 'paginate_button page-item next'">
+                                        <a th:if="!${adminListPage.isLast}"
+                                           th:href="'javascript:PageFunction.getPartnerList('+${adminListPage.number+1}+')'"
+                                           class="page-link"> &gt; </a>
+                                        <a th:if="${adminListPage.isLast}" href="javascript:void(0);"
+                                           class="page-link"> &gt; </a>
+                                    </li>
+                                    <li th:class="${adminListPage.number+1 ge adminListPage.totalPages} ? 'paginate_button page-item next disabled' : 'paginate_button page-item next'">
+                                        <a th:if="!${adminListPage.isLast} and ${adminListPage.number+10} > ${adminListPage.totalPages-1}"
+                                           th:href="'javascript:PageFunction.getPartnerList('+${adminListPage.totalPages-1}+')'"
+                                           class="page-link"> &gt;&gt; </a>
+                                        <a th:if="!${adminListPage.isLast} and ${adminListPage.number+10} <= ${adminListPage.totalPages-1}"
+                                           th:href="'javascript:PageFunction.getPartnerList('+${adminListPage.number+10}+')'"
+                                           class="page-link"> &gt;&gt; </a>
+                                        <a th:if="${adminListPage.isLast}" href="javascript:void(0);"
+                                           class="page-link"> &gt;&gt; </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!--/.테이블 카드-->
+
+        </div>
+        <!-- /.card -->
+    </section>
+
+    <script th:inline="javascript">
+        // page function
+        let PageFunction = (function (pf) {
+            let pageNumber = 0;
+
+            // document ready
+            pf.init = function () {
+                // 상세에서 목록으로 넘어왔을때 검색 조건 유지
+                pageNumber = common.localStorage.getItem('page');
+
+                // 최초 조회
+                PageFunction.getPartnerList(pageNumber);
+
+                // 엔터키 이벤트
+                $('#conditionVal').on("keyup",function(key){
+                    if(key.keyCode==13) {
+                        PageFunction.getPartnerList();
+                    }
+                });
+
+                // 초기화
+                $('#init').on('click', function (e) {
+                    $('#condition').val("");
+                    $('#conditionVal').val("");
+                    $('#contractY').prop('checked',true);
+                    $('#contractN').prop('checked',true);
+                });
+
+                // 검색
+                $('#search').on('click', function (e) {
+                    PageFunction.getPartnerList();
+                });
+            };
+
+            // 파트너 리스트 조회
+            pf.getPartnerList = function (page) {
+                if (!page) {
+                    page = 0;
+                }
+
+                let param = [];
+
+                // 검색조건
+                let condition = $('#condition').val();
+                let conditionVal = $('#conditionVal').val();
+                if (condition == 1) {
+                    param.push("sid=" + conditionVal);
+                } else if (condition == 2) {
+                    param.push("partnerNameKor=" + conditionVal);
+                } else if (condition == 3) {
+                    param.push("brandName=" + conditionVal);
+                }
+                // 계약여부
+                let contractYn = $('input:checkbox[name=contractYn]:checked');
+                if( contractYn.length == 1 ) {
+                    param.push("contractYn=" + contractYn.val());
+                }
+
+                // 페이징
+                param.push("page=" + page);
+
+                $('#List').getLoad('/admin/web/admin/admin?' + encodeURI(param.join("&")));
+            }
+
+            // 파트너 상세 조회
+            pf.getPartnerDetail = function (sid) {
+                let param = {};
+
+                // 페이징
+                param.page = pageNumber;
+
+                common.goPage('/admin/web/admin/admin-detail?sid=' + sid, param);
+            }
+
+            return pf;
+        }(window.pf || {}));
+    </script>
+</div>
+</html>
