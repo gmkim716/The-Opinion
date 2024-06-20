@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aspectj.lang.annotation.After;
 import org.example.domain.Article;
 import org.example.dto.AddArticleRequest;
 import org.example.repository.BlogRepository;
@@ -20,8 +19,10 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest  // 테스트를 위한 Spring Boot 어플리케이션 컨텍스트를 제공
@@ -42,8 +43,8 @@ class BlogApiControllerTest {
 
     @BeforeEach
     public void mockMvcSetUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
-                .build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        blogRepository.deleteAll();  // 각 테스트 전에 데이터베이스 초기화
     }
 
     @DisplayName("addArticle: 블로그 글 추가에 성공한다.")
@@ -51,8 +52,8 @@ class BlogApiControllerTest {
     public void addArticle() throws Exception {
         // given
         final String url = "/api/articles";
-        final String title = "title";
-        final String content = "content";
+        final String title = "제목 1";
+        final String content = "내용 1";
         final AddArticleRequest userRequest = new AddArticleRequest(title, content);
 
         // 객체 JSON으로 직렬화
@@ -70,9 +71,33 @@ class BlogApiControllerTest {
 
         List<Article> articles = blogRepository.findAll();
 
+        // 테스트를 위해 데이터베이스를 초기화하는 경우, 아래 값을 1로 변경
         assertEquals(1, articles.size());
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
         assertThat(articles.get(0).getContent()).isEqualTo(content);
     }
 
+    @DisplayName("findAllArticles: 블로그 글 목록 조회에 성공한다.")
+    @Test
+    public void findAllArticles() throws Exception {
+        // given
+        final String url = "/api/articles";
+        final String title = "title";
+        final String content = "content";
+
+        blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        // when
+        final ResultActions resultActions = mockMvc.perform(get(url)
+                .accept(MediaType.APPLICATION_JSON_VALUE));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].content").value(content))
+                .andExpect(jsonPath("$[0].title").value(title));
+    }
 }

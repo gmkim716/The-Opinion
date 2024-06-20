@@ -39,6 +39,4 @@ public class BlogApiController {
                 .body(articles);
     }
 
-
-
 }
