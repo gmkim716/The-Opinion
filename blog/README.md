@@ -16,6 +16,8 @@
 - Lombok
 - Gradle
 - JUnit5
+- JWT
+- OAuth2
 
 ## 주요 학습 개념
 - Spring으로 웹 화면 구성하기
