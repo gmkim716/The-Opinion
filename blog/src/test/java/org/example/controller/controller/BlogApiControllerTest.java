@@ -1,4 +1,4 @@
-package org.example.controller;
+package org.example.controller.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.domain.Article;
