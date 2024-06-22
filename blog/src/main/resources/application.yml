@@ -11,6 +11,17 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true  # 테이블 생성 후에 data.sql 실행
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 738066116618-ns2muqleg57kpd5qjk5j850gn9og7nk6.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+
 jwt:
   issuer: gmkim716@gmail.com
   secret_key: study-springboot
