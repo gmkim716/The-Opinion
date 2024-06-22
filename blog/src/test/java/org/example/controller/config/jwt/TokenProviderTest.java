@@ -85,7 +85,7 @@ public class TokenProviderTest {
     @Test
     void getAuthentication() {
         // given
-        String userEmail = "user@gmail.com";
+        String userEmail = "test@gmail.com";
         String token = JwtFactory.withDefaultValues().createToken(jwtProperties);
 
         // when
