@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'  // 타임리프에서 시큐리티 사용
     implementation 'org.springframework.security:spring-security-test'  // 테스트
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'  // OAuth2
 
     // JWT
     implementation 'io.jsonwebtoken:jjwt:0.9.1'  // 자바 JWT 라이브러리

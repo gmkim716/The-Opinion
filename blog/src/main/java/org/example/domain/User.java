@@ -26,10 +26,14 @@ public class User implements UserDetails {  // UserDetails를 상속받아 인�
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Builder
-    public User(String email, String password) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Override
@@ -69,5 +73,11 @@ public class User implements UserDetails {  // UserDetails를 상속받아 인�
     @Override
     public boolean isEnabled() {
         return true;  // true: 사용 가능, false: 사용 불가
+    }
+
+    // 사용자 이름 변경
+    public User update(String nickname) {
+        this.nickname = nickname;
+        return this;
     }
 }

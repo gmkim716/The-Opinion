@@ -21,7 +21,6 @@ spring:
             scope:
               - email
               - profile
-
 jwt:
   issuer: gmkim716@gmail.com
   secret_key: study-springboot
