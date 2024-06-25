@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Article;
 import org.example.dto.AddArticleRequest;
 import org.example.dto.ArticleResponse;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController  // 객체 데이터를 JSON 형식으로 반환하는 컨트롤러
 @RequiredArgsConstructor
 public class BlogApiController {
@@ -27,6 +29,7 @@ public class BlogApiController {
 
     @GetMapping("/api/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles() {
+        log.info("########## findAllArticles");
         List<ArticleResponse> articles = blogService.findAll()
             .stream()
             .map(ArticleResponse::new)  // ArticleResponse로 변환

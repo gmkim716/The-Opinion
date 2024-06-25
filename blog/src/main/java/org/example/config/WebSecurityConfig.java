@@ -1,6 +1,8 @@
 package org.example.config;
 
 import lombok.RequiredArgsConstructor;
+import org.example.domain.Article;
+import org.example.dto.AddArticleRequest;
 import org.example.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,7 +51,8 @@ public class WebSecurityConfig {
                 .requestMatchers(
                     new AntPathRequestMatcher("/login"),
                     new AntPathRequestMatcher("/signup"),
-                    new AntPathRequestMatcher("/user")
+                    new AntPathRequestMatcher("/user"),
+                    new AntPathRequestMatcher("/api/**")  // api 경로에 대해 허용
                 ).permitAll()
                 .anyRequest().authenticated())  // 나머지 요청에 대해서는 인증된 사용자만 접근 가능
             // 폼 기반 로그인 설정
